@@ -15,8 +15,13 @@ export default function SignupPage() {
   const [oauthLoading, setOauthLoading] = useState(false);
 
   function getRedirectTarget() {
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
-    return `${appUrl || window.location.origin}/dashboard`;
+    const configuredAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
+
+    if (window.location.hostname === "localhost") {
+      return `${window.location.origin}/dashboard`;
+    }
+
+    return `${configuredAppUrl || "https://yt-tscript.vercel.app"}/dashboard`;
   }
 
   async function handleGoogleSignup() {
