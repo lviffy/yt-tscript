@@ -132,3 +132,11 @@ Optional dev seed is in [supabase/seed.sql](supabase/seed.sql).
 - `/signup`
 - `/login`
 - `/dashboard`
+- `/auth/callback`
+
+## OAuth redirect setup
+
+For Google OAuth with Supabase, add these app redirect URLs in Supabase Auth URL configuration:
+
+- `https://yt-tscript.vercel.app/auth/callback`
+- `http://localhost:3000/auth/callback` (local dev)

@@ -18,10 +18,10 @@ export default function SignupPage() {
     const configuredAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
 
     if (window.location.hostname === "localhost") {
-      return `${window.location.origin}/dashboard`;
+      return `${window.location.origin}/auth/callback?next=%2Fdashboard`;
     }
 
-    return `${configuredAppUrl || "https://yt-tscript.vercel.app"}/dashboard`;
+    return `${configuredAppUrl || "https://yt-tscript.vercel.app"}/auth/callback?next=%2Fdashboard`;
   }
 
   async function handleGoogleSignup() {
