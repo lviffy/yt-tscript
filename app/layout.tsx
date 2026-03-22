@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import { redirect } from "next/navigation";
 import { getServerSupabase } from "@/lib/supabase-server";
@@ -19,6 +20,9 @@ const monoFont = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "YouTube Transcript API",
   description: "Simple API for pulling timestamped transcripts from public YouTube videos.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default async function RootLayout({
@@ -58,8 +62,8 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[color:rgba(246,247,245,0.9)] backdrop-blur">
           <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
-            <Link href="/" className="text-sm font-semibold tracking-wide text-[var(--brand-strong)]">
-              YouTube Transcript API
+            <Link href="/" className="inline-flex items-center">
+              <Image src="/logo.svg" alt="YouTube Transcript API" width={210} height={32} priority />
             </Link>
             <div className="flex items-center gap-2 text-sm">
               {userEmail ? (

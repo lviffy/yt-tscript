@@ -16,7 +16,7 @@ export default async function DashboardPage() {
 
   const keyRow = await ensureUserApiKey(user.id);
   const usage = await getMonthlyUsageStats(keyRow.id, keyRow.requests_limit);
-  const contactHref = `mailto:support@yourcompany.com?subject=${encodeURIComponent("Request API limit increase")}&body=${encodeURIComponent(`Hi team,\n\nPlease review and increase my monthly API limit.\n\nAccount: ${user.email ?? "unknown"}\nCurrent plan limit: ${usage.limit}/month\nCurrent usage this month: ${usage.used}\n\nThanks.`)}`;
+  const contactHref = `mailto:support@rohan.email.now@gmail.com?subject=${encodeURIComponent("Request API limit increase")}&body=${encodeURIComponent(`Hi team,\n\nPlease review and increase my monthly API limit.\n\nAccount: ${user.email ?? "unknown"}\nCurrent plan limit: ${usage.limit}/month\nCurrent usage this month: ${usage.used}\n\nThanks.`)}`;
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 px-5 py-10 sm:px-8">
