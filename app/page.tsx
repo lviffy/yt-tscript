@@ -1,7 +1,7 @@
 import { LiveTester } from "@/app/components/live-tester";
 
 export default function Home() {
-  const curlExample = `curl -X POST https://your-project.vercel.app/api/v1/transcript \\
+  const curlExample = `curl -X POST https://yt-tscript.vercel.app/api/v1/transcript \\
   -H "Content-Type: application/json" \\
   -H "x-api-key: YOUR_API_KEY" \\
   -d '{"videoId": "dQw4w9WgXcQ"}'`;

@@ -14,6 +14,11 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
 
+  function getRedirectTarget() {
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
+    return `${appUrl || window.location.origin}/dashboard`;
+  }
+
   async function handleGoogleSignup() {
     setError("");
     setOauthLoading(true);
@@ -30,7 +35,7 @@ export default function SignupPage() {
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: getRedirectTarget(),
       },
     });
 
@@ -54,7 +59,14 @@ export default function SignupPage() {
       return;
     }
 
-    const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
+    const redirectTarget = getRedirectTarget();
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirectTarget,
+      },
+    });
 
     if (signUpError) {
       setLoading(false);
@@ -63,12 +75,9 @@ export default function SignupPage() {
     }
 
     if (!data.session) {
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-      if (signInError) {
-        setLoading(false);
-        setError("Account created. Please verify your email, then log in.");
-        return;
-      }
+      setLoading(false);
+      setError("Account created. Check your email to verify the account, then log in.");
+      return;
     }
 
     setLoading(false);

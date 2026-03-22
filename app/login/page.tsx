@@ -14,6 +14,11 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
 
+  function getRedirectTarget() {
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
+    return `${appUrl || window.location.origin}/dashboard`;
+  }
+
   async function handleGoogleLogin() {
     setError("");
     setOauthLoading(true);
@@ -30,7 +35,7 @@ export default function LoginPage() {
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: getRedirectTarget(),
       },
     });
 

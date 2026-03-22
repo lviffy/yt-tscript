@@ -187,7 +187,7 @@ The landing page at the root route should include:
 **Example code snippet on the page:**
 
 ```bash
-curl -X POST https://your-project.vercel.app/api/v1/transcript \
+curl -X POST https://yt-tscript.vercel.app/api/v1/transcript \
   -H "Content-Type: application/json" \
   -H "x-api-key: YOUR_API_KEY" \
   -d '{"videoId": "dQw4w9WgXcQ"}'
@@ -209,7 +209,7 @@ curl -X POST https://your-project.vercel.app/api/v1/transcript \
 1. Push repo to GitHub
 2. Import project in Vercel
 3. Add environment variables in Vercel dashboard
-4. Deploy — API goes live at `your-project.vercel.app/api/v1/transcript`
+4. Deploy — API goes live at `yt-tscript.vercel.app/api/v1/transcript`
 
 No custom server config needed. Vercel handles scaling automatically.
 
