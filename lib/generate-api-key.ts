@@ -8,6 +8,7 @@ type KeyRow = {
   id: string;
   key: string;
   user_id: string;
+  requests_limit: number;
 };
 
 type QueryError = { message: string; code?: string } | null;
@@ -20,7 +21,7 @@ type ApiKeysInserter = {
     requests_used: number;
     is_active: boolean;
   }): {
-    select(columns: "id,key,user_id"): {
+    select(columns: "id,key,user_id,requests_limit"): {
       single(): Promise<{ data: KeyRow | null; error: QueryError }>;
     };
   };
@@ -36,7 +37,7 @@ export async function ensureUserApiKey(userId: string): Promise<KeyRow> {
 
   const { data: existing, error: existingError } = await supabase
     .from("api_keys")
-    .select("id,key,user_id")
+    .select("id,key,user_id,requests_limit")
     .eq("user_id", userId)
     .maybeSingle();
 
@@ -54,11 +55,11 @@ export async function ensureUserApiKey(userId: string): Promise<KeyRow> {
       .insert({
         key,
         user_id: userId,
-        requests_limit: 1000,
+        requests_limit: 100,
         requests_used: 0,
         is_active: true,
       })
-      .select("id,key,user_id")
+      .select("id,key,user_id,requests_limit")
       .single();
 
     if (!error && data) {

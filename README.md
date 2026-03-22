@@ -73,7 +73,8 @@ Success response:
     { "start": 0.0, "duration": 3.2, "text": "We're no strangers to love" },
     { "start": 3.2, "duration": 2.8, "text": "You know the rules and so do I" }
   ],
-  "fullText": "We're no strangers to love You know the rules and so do I ..."
+  "fullText": "We're no strangers to love You know the rules and so do I ...",
+  "plainEnglishText": "We're no strangers to love. You know the rules and so do I."
 }
 ```
 
@@ -104,7 +105,7 @@ Optional dev seed is in [supabase/seed.sql](supabase/seed.sql).
 - `user_id uuid references auth.users(id)`
 - `created_at timestamptz default now()`
 - `requests_used int4 not null default 0`
-- `requests_limit int4 not null default 1000`
+- `requests_limit int4 not null default 100`
 - `is_active bool not null default true`
 
 ### `usage_logs`
@@ -119,9 +120,10 @@ Optional dev seed is in [supabase/seed.sql](supabase/seed.sql).
 ## Notes
 
 - Proxy enforces `x-api-key` header presence on all `/api/v1/*` routes.
-- The route handler validates key state/limits, increments usage, and logs request status.
+- The route handler enforces monthly limits using `usage_logs` (`100` requests per month by default), increments usage, and logs request status.
 - Supabase Auth powers `/signup` and `/login` with redirect to `/dashboard` on success.
 - On first dashboard load, the app auto-generates a key in format `yt_live_<nanoid>` and stores it in `api_keys` with `user_id`.
+- Dashboard shows remaining requests for the current month and includes a contact button for limit increases.
 - Landing page playground calls `/api/playground/transcript` and uses a restricted internal key server-side.
 
 ## New routes

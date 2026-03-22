@@ -9,7 +9,7 @@ create table if not exists public.api_keys (
   user_id uuid not null references auth.users(id) on delete cascade,
   created_at timestamptz not null default now(),
   requests_used int4 not null default 0,
-  requests_limit int4 not null default 1000,
+  requests_limit int4 not null default 100,
   is_active bool not null default true,
   constraint api_keys_requests_non_negative check (requests_used >= 0 and requests_limit >= 0)
 );

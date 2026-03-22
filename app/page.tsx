@@ -14,7 +14,8 @@ export default function Home() {
     { "start": 0.0, "duration": 3.2, "text": "We're no strangers to love" },
     { "start": 3.2, "duration": 2.8, "text": "You know the rules and so do I" }
   ],
-  "fullText": "We're no strangers to love You know the rules and so do I ..."
+  "fullText": "We're no strangers to love You know the rules and so do I ...",
+  "plainEnglishText": "We're no strangers to love. You know the rules and so do I."
 }`;
 
   return (
@@ -36,7 +37,7 @@ export default function Home() {
           </div>
           <div className="grid gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface-alt)] p-4 text-sm text-[var(--muted)]">
             <p>p95 response target: &lt; 1500ms</p>
-            <p>Free tier: 1,000 requests/month</p>
+            <p>Free tier: 100 requests/month</p>
             <p>Deployment: Vercel + Supabase</p>
           </div>
         </div>

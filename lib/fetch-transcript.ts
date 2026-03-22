@@ -20,6 +20,7 @@ export type TranscriptResult = {
   language: string;
   transcript: TranscriptSegment[];
   fullText: string;
+  plainEnglishText: string;
 };
 
 const VIDEO_ID_RE = /^[A-Za-z0-9_-]{11}$/;
@@ -92,6 +93,14 @@ async function fetchVideoTitle(videoId: string): Promise<string> {
   return json.title?.trim() || videoId;
 }
 
+function toPlainEnglish(text: string): string {
+  return text
+    .replace(/\[[^\]]*\]/g, " ")
+    .replace(/[♪♫]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export async function fetchVideoTranscript(videoId: string): Promise<TranscriptResult> {
   let transcriptRows: RawTranscriptSegment[];
 
@@ -116,11 +125,14 @@ export async function fetchVideoTranscript(videoId: string): Promise<TranscriptR
     .filter(Boolean)
     .join(" ");
 
+  const plainEnglishText = toPlainEnglish(fullText);
+
   return {
     videoId,
     title: await fetchVideoTitle(videoId),
     language: transcriptRows[0]?.lang ?? "unknown",
     transcript,
     fullText,
+    plainEnglishText,
   };
 }
