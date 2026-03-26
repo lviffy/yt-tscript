@@ -202,6 +202,7 @@ curl -X POST https://yt-tscript.vercel.app/api/v1/transcript \
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | Service role key (server-only, never exposed) |
 
+
 ---
 
 ## 12. Deployment
